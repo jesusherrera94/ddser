@@ -17,6 +17,7 @@ var users = {};
 var ind= 0;
 firebase.initializeApp(config);
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -72,7 +73,10 @@ app.post('/login', (req,res) => {
         )
 });
 app.post('/logout',(req,res)=>{
+    console.log('entró a logout');
+    console.log(req.body.user)
     firebase.auth().signOut().then(function() {
+        console.log('deslogeo exitoso')
        users[Object.values(users).indexOf(req.body.user)]='';
        res.send('x')
        res.end();
